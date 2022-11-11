@@ -159,7 +159,7 @@ dialog:false,
   },
   methods: {
     loginValidation() {
-      axios.post('http://192.168.1.46:8991/api/auth/signin', {
+      axios.post('https://dtrips.herokuapp.com/api/auth/signin', {
             "username" : this.email,
             "password": this.password,
               }).then((response)=>{

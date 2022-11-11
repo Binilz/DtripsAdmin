@@ -60,7 +60,7 @@ export default {
           if (authResult.credential.providerId == "google.com" ){
             console.log(authResult.user.displayName)
             
-            axios.post( `http://192.168.1.46:8991/api/auth/google-signin`, {
+            axios.post( `https://dtrips.herokuapp.com/api/auth/google-signin`, {
                "name" : authResult.user.displayName,
                "email": email.value,
                "username": email.value,
@@ -84,7 +84,7 @@ export default {
             
             console.log(authResult.additionalUserInfo.profile.id)
            
-            axios.post(`http://192.168.1.46:8991/api/auth/fb-signin`, 
+            axios.post(`https://dtrips.herokuapp.com/api/auth/fb-signin`, 
             {
                "username" :  useridfb.value,
                "name" : authResult.user.displayName,

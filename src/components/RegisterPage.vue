@@ -190,7 +190,7 @@ export default {
   },
   methods: {
     register() {
-      axios.post('http://192.168.1.46:8991/api/auth/admin-signup', {
+      axios.post('https://dtrips.herokuapp.com/api/auth/admin-signup', {
             "username" : this.email,
             "email" : this.email,
             "password": this.password,
