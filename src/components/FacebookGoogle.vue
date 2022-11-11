@@ -60,9 +60,11 @@ export default {
           if (authResult.credential.providerId == "google.com" ){
             console.log(authResult.user.displayName)
             
-            axios.post( `http://192.168.1.46:8991/api/google/signup`, {
+            axios.post( `http://192.168.1.46:8991/api/auth/google-signin`, {
                "name" : authResult.user.displayName,
                "email": email.value,
+               "username": email.value,
+               "password": email.value,
                "imageurl": image.value,
             })
             .then((response)=>{
@@ -82,17 +84,20 @@ export default {
             
             console.log(authResult.additionalUserInfo.profile.id)
            
-            axios.post(`http://192.168.1.46:8991/api/facebook/facebook-signup`, 
+            axios.post(`http://192.168.1.46:8991/api/auth/fb-signin`, 
             {
-               "username" :  authResult.user.displayName,
-               "id": useridfb.value,
+               "username" :  useridfb.value,
+               "name" : authResult.user.displayName,
+               "identity": useridfb.value,
+               "email" : useridfb.value,
+               "password": useridfb.value,
                "imageurl": image.value,
             })
             .then((response)=>{
                 console.log(response.status);
                 console.log(response.data);
                
-                console.log('Success')
+                console.log('Facebook Success')
                 // this.$router.push({name: 'home'})
               }).catch((error)=>{
                   alert( `Error connection`)

@@ -1,5 +1,5 @@
 <template>
-  <v-img src="https://media.istockphoto.com/photos/purple-defocused-blurred-motion-abstract-background-picture-id1273929462?b=1&k=20&m=1273929462&s=170667a&w=0&h=Yldyj7IZlkZSFHf3kgp4T2OV2HAYNRX1Kw8W4RAqPlQ=">
+  <!-- <v-img src="https://media.istockphoto.com/photos/purple-defocused-blurred-motion-abstract-background-picture-id1273929462?b=1&k=20&m=1273929462&s=170667a&w=0&h=Yldyj7IZlkZSFHf3kgp4T2OV2HAYNRX1Kw8W4RAqPlQ="> -->
   <div>
   <home-headers></home-headers>
   <v-dialog
@@ -50,72 +50,97 @@
                       <v-row align="center" justify="center">
                        
                         <v-col cols="12" sm="8">
-                          <form @submit.prevent="loginValidation" ref="form">
+                          <v-form @submit.prevent="register" ref="form" v-model="form">
                             <v-text-field
-                              label="Email"
-                              name="email"
-                              placeholder="Email"
-                              v-model="email"
-                              :rules="emailRules" 
-                              outlined
-                              dense
-                              color="purple"
-                              autocomplete="false"
-                              class="mt-16"
-                              prepend-inner-icon="mdi-email"
-                            />
-                            <v-text-field
-                              label="Password"
-                              name="password"
-                              placeholder="Password"
-                              v-model="password"
-                              :rules="passwordRules" 
-                              outlined
-                              dense
-                              color="purple"                              
-                              prepend-inner-icon="mdi-lock-outline"
-                              :type="passwordShow ? 'text' : 'password'"
-                              :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
-                              @click:append="passwordShow = !passwordShow"
-                            />
+                            label="Name"
+                            type="text"
+                            placeholder="Name"
+                            v-model="name"
+                            :rules="[rules.required]"
+                            outlined
+                            dense
+                            color="purple"
+                            autocomplete="false"
+                            class="mt-16"
+                            prepend-inner-icon="mdi-account"
+                          />  
+                          <v-text-field
+                            label="Email"
+                           
+                            placeholder="Email"
+                            v-model="email"
+                            :rules="emailRules" 
+                            outlined
+                            dense
+                            color="purple"
+                            autocomplete="false"
+                            
+                            prepend-inner-icon="mdi-email"
+                          />                 
+                          <v-text-field
+                            label="Password"
+                            
+                            placeholder="Password"
+                            v-model="password"
+                            :rules="[rules.password, rules.length(6)]" 
+                            outlined
+                            dense
+                            color="purple"                              
+                            prepend-inner-icon="mdi-lock-outline"
+                            :type="passwordShow ? 'text' : 'password'"
+                            :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="passwordShow = !passwordShow"
+                          />
+                          <v-text-field
+                            label="Confirm Password"
+                        
+                            placeholder="Confirm Password"
+                            v-model="password2"
+                            :rules="PasswordRules2.concat(validatePassword2)"
+                            outlined
+                            dense
+                            color="purple"                              
+                            prepend-inner-icon="mdi-lock-outline"
+                            :type="passwordShow ? 'text' : 'password'"
+                            :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="passwordShow = !passwordShow"
+                          />
+                          <v-text-field
+                          label="Phone Number"
+                          placeholder="Phone Number"
+                          v-model="phone"
+                  
+                          outlined
+                          dense
+                          color="purple"                              
+                          prepend-inner-icon="mdi-phone"
+                      
+                        />
+                        <v-checkbox
+                            v-model="agreement"
+                            :rules="[rules.required]"
+                            color="#92278f"
+                        >
+                            <template v-slot:label>
+                            I agree to the&nbsp;
+                            <router-link to="/terms" class="purple--text ml-3" icon>Terms and Conditions</router-link>
+                            &nbsp;and&nbsp;
+                            <router-link to="/privacy" class="purple--text ml-3" icon>Privacy Policy</router-link>*
+                            </template>
+                        </v-checkbox> 
                             <v-btn
+                            :disabled="!form"
+                            :loading="isLoading"
                               type="submit"
+                              id="register"
                               color="purple"
-                              dark
-                              block
-                              tile
-                            >Log in</v-btn
+                              depressed block tile
+                            >Register</v-btn
                             >
                             <br>
                             
-                             <v-row>
-                              <v-col cols="12" sm="7">
-                                <v-checkbox
-                                  label="Terms & Condition"
-                                  class="mt-n1"
-                                  color="#3e154e"
-                                > </v-checkbox>
-                              </v-col>
-                              <v-col cols="13" sm="5">
-                                
-                                <router-link to='/forgetpassword' class="reset-button">Forget password</router-link>
-                              </v-col>
-                            </v-row>
-                           
-                              <div class="login-choice"> <span>or log in using</span></div>
-                              <v-row> 
-                              <v-col cols="12" sm="12">
-                               
-                                <facebook-google></facebook-google>
-                                
-                              </v-col>
-                            </v-row>
-                            <v-row>
-                              <v-col cols="12" sm="12">
-                              Not a Dtrip Member?? <button><router-link to="/registerpage" class="purple--text">Register</router-link> </button>
-                            </v-col>
-                            </v-row>
-                          </form>
+                          
+                          </v-form>
                         </v-col>
                       </v-row>
                      
@@ -132,7 +157,7 @@
     </v-container>  
 
   </div>
-</v-img>
+<!-- </v-img> -->
 </template>
 
 <script>
@@ -140,36 +165,40 @@ import HomeHeaders from './HomeHeaders.vue'
 import FacebookGoogle from '../components/FacebookGoogle'
 import axios from 'axios'
 export default {
-  data(){
-    return{    
-      password: '',
-      passwordRules: [
-        v => !!v || 'Password is required',
-        v => (v && v.length >= 8) || 'Password must be more than 8 characters',
-      ],
-      passwordShow: false,
+  data: () => ({
+      dialog: false,
+      agreement: false,
       email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ], 
-dialog:false,
-    } ;
-
-  },
-  
+      name:'',
+      form: false,
+      isLoading: false,
+      password: '',
+      password2: '',
+      passwordShow: false,
+      phone: '',
+      PasswordRules2: [ v => !!v || "Password incorrect" ],
+      rules: {
+        email: v => !!(v || '').match(/@/) || 'Please enter a valid email',
+        length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+        password: v => !!(v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
+          'Password must contain an upper case letter, a numeric character, and a special character',
+        required: v => !!v || 'This field is required',
+      },
+    }),
   components: {
     HomeHeaders, FacebookGoogle
   },
   methods: {
-    loginValidation() {
-      axios.post('http://192.168.1.39:8991/api/auth/api/signin', {
+    register() {
+      axios.post('http://192.168.1.46:8991/api/auth/admin-signup', {
             "username" : this.email,
+            "email" : this.email,
             "password": this.password,
               }).then((response)=>{
               if(response.status===200){
                 console.log(response.status);
                 console.log(response.data);
+                console.log('Registered Successfully');
                 this.$router.push("/");
               }
               }).catch((error)=>{                     
@@ -177,7 +206,9 @@ dialog:false,
               }); 
               
           },
-      
+          validatePassword2(value) {
+          return value == this.password || "Password does not match"
+        }, 
  
      
   }
@@ -189,29 +220,3 @@ dialog:false,
 
 </script>
 
-<style scoped>
-::v-deep .v-btn {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-.login-choice span {
-  color: #5b6987;
-  display: -ms-grid;
-  display: grid;
-  font-size: 16px;
-  width: 100%;
-  line-height: 40px;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  text-align: center;
-  -ms-grid-columns: minmax(20px,1fr) auto minmax(20px,1fr);
-  grid-template-columns: minmax(20px,1fr) auto minmax(20px,1fr);
-  grid-gap: 19px;
-}
-.login-choice span:after, .login-choice span:before {
-  content: "";
-  border-top: 1px solid #e5e8ed;
-}
-
-</style>
