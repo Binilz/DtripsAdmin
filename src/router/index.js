@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue'
 import LogIn from '../components/LogIn'
 import FacebookGoogle from '../components/FacebookGoogle'
 import RegisterPage from '../components/RegisterPage'
+import PrivacyPolicy from '../views/PrivacyPolicy.vue';
+import TermsConditions from '../views/TermsConditions.vue';
 
 Vue.use(VueRouter)
 
@@ -36,6 +38,16 @@ const routes = [
     name: 'facebookgoogle',
     component: FacebookGoogle
   },
+  {
+    path: '/privacy',
+    name: 'privacy',
+    component: PrivacyPolicy
+  },
+  {
+    path: '/terms',
+    name: 'terms',
+    component: TermsConditions
+  }
 ]
 
 const router = new VueRouter({
