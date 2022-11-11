@@ -105,7 +105,7 @@
                             :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append="passwordShow = !passwordShow"
                           />
-                          <v-text-field
+                          <!-- <v-text-field
                           label="Phone Number"
                           placeholder="Phone Number"
                           v-model="phone"
@@ -115,7 +115,7 @@
                           color="purple"                              
                           prepend-inner-icon="mdi-phone"
                       
-                        />
+                        /> -->
                         <v-checkbox
                             v-model="agreement"
                             :rules="[rules.required]"
