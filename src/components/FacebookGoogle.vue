@@ -2,10 +2,10 @@
   <div>
     <section id="firebaseui-auth-container"></section>
     <!-- <div id="loader">Loading...</div> -->
-    <div v-if="isSignedIn">
+    <!-- <div v-if="isSignedIn">
       <v-btn @click="login">Call</v-btn>
       <v-btn @click="handleSignOut"> Sign Out</v-btn>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -27,10 +27,10 @@ const auth = getAuth();
 export default {
   mounted(){
     const user = ref(null);
-    const userfb = ref(null);
+   
     const email = ref(null);
     const image = ref(null);
-    const imagefb = ref(null);
+   
     const useridfb = ref(null);
     const isSignedIn = ref(false);
     
@@ -40,8 +40,7 @@ export default {
       signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      // firebase.auth.GithubAuthProvider.PROVIDER_ID
+
       ],
       callbacks: {
      
@@ -60,7 +59,7 @@ export default {
           if (authResult.credential.providerId == "google.com" ){
             console.log(authResult.user.displayName)
             
-            axios.post( `https://dtrips.herokuapp.com/api/auth/google-signin`, {
+            axios.post( `http://192.168.1.46:8991/api/auth/google-signin`, {
                "name" : authResult.user.displayName,
                "email": email.value,
                "username": email.value,
@@ -84,7 +83,7 @@ export default {
             
             console.log(authResult.additionalUserInfo.profile.id)
            
-            axios.post(`https://dtrips.herokuapp.com/api/auth/fb-signin`, 
+            axios.post(`http://192.168.1.46:8991/api/auth/fb-signin`, 
             {
                "username" :  useridfb.value,
                "name" : authResult.user.displayName,

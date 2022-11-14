@@ -25,7 +25,8 @@
     </v-dialog>
     
   <v-container class="container" >
-    <v-card class="elevation-8 mt-14 ml-7 mr-7" >
+    <home-headers></home-headers>
+    <!-- <v-card class="elevation-8 mt-14 ml-7 mr-7" > -->
       <v-row align="center" justify="center">
        <v-col cols="12" sm="7" md="4">
         <v-img max-width=650 src="login.png"></v-img>
@@ -153,7 +154,7 @@
         
         
       </v-row>
-    </v-card>
+    <!-- </v-card> -->
     </v-container>  
 
   </div>
@@ -169,6 +170,7 @@ export default {
       dialog: false,
       agreement: false,
       email: '',
+      
       name:'',
       form: false,
       isLoading: false,
@@ -186,11 +188,11 @@ export default {
       },
     }),
   components: {
-    HomeHeaders, FacebookGoogle
+    HomeHeaders, FacebookGoogle,
   },
   methods: {
     register() {
-      axios.post('https://dtrips.herokuapp.com/api/auth/admin-signup', {
+      axios.post('http://192.168.1.46:8991/api/auth/admin-signup', {
             "username" : this.email,
             "email" : this.email,
             "password": this.password,

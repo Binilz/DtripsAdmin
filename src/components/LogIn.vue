@@ -25,7 +25,8 @@
     </v-dialog>
     
   <v-container class="container" >
-    <v-card class="elevation-8 mt-14 ml-7 mr-7" >
+    
+    <!-- <v-card class="elevation-8 mt-14 ml-7 mr-7" > -->
       <v-row align="center" justify="center">
        <v-col cols="12" sm="7" md="4">
         <v-img max-width=650 src="login.png"></v-img>
@@ -124,7 +125,7 @@
         
         
       </v-row>
-    </v-card>
+    <!-- </v-card> -->
     </v-container>  
 
   </div>
@@ -159,7 +160,7 @@ dialog:false,
   },
   methods: {
     loginValidation() {
-      axios.post('https://dtrips.herokuapp.com/api/auth/signin', {
+      axios.post('http://192.168.1.46:8991/api/auth/signin', {
             "username" : this.email,
             "password": this.password,
               }).then((response)=>{
